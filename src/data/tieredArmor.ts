@@ -50,13 +50,16 @@ type TierTweaks = Partial<Record<(typeof TIERS)[number], Tweak>>;
 const HEAD_TWEAKS: TierTweaks = {
   slate: { scale: 0.88, offsetX: 14 },
   iron: { scale: 0.88 },
+  umber: { scale: 0.85 },
 };
 const CHEST_TWEAKS: TierTweaks = {
   slate: { scale: 0.9 },
   iron: { scale: 0.8 },
+  umber: { scale: 0.85 },
 };
 const LEGS_TWEAKS: TierTweaks = {
   iron: { scale: 0.85 },
+  umber: { scale: 0.85 },
 };
 
 export function preloadTieredArmor(scene: Phaser.Scene): void {
