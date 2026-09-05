@@ -44,8 +44,8 @@ const TIER_LABELS: Record<(typeof TIERS)[number], string> = {
 };
 
 /** Per-tier nudges for pieces that don't quite match the rest after the shared tuning above. */
-const HEAD_TWEAKS: Partial<Record<(typeof TIERS)[number], { offsetX?: number; offsetY?: number }>> = {
-  slate: { offsetX: 22 },
+const HEAD_TWEAKS: Partial<Record<(typeof TIERS)[number], { scale?: number; offsetX?: number; offsetY?: number }>> = {
+  slate: { scale: 0.88, offsetX: 22 },
 };
 const CHEST_TWEAKS: Partial<Record<(typeof TIERS)[number], { scale?: number; offsetX?: number; offsetY?: number }>> = {
   slate: { scale: 0.9 },
@@ -72,6 +72,7 @@ export function createTieredArmorItems(): EquipmentItem[] {
       textureKey: `${tier}_head`,
       originX: 0.5,
       originY: 0.82,
+      scale: headTweak?.scale ?? 1,
       offsetX: headTweak?.offsetX ?? 0,
       offsetY: headTweak?.offsetY ?? 40,
     });
