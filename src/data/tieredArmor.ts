@@ -14,8 +14,8 @@ import type { EquipmentItem } from "../rig/types";
  * piece" case called out in ARMOR_PIPELINE.md.
  *
  * Scale/origin here are tuned against the placeholder body in
- * placeholderBody.ts, which is much smaller than these detailed pieces
- * were actually drawn for. When a real body sprite replaces the
+ * placeholderBody.ts, which is sized to roughly match these pieces but is
+ * still not real character art. When a real body sprite replaces the
  * placeholder, these will need re-tuning to match its actual proportions.
  */
 
@@ -37,7 +37,8 @@ const TIER_LABELS: Record<(typeof TIERS)[number], string> = {
   royal: "Royal",
 };
 
-const SCALE = 0.11;
+const SCALE = 1.0;
+const CHEST_SCALE = 1.3;
 
 export function preloadTieredArmor(scene: Phaser.Scene): void {
   for (const tier of TIERS) {
@@ -59,7 +60,7 @@ export function createTieredArmorItems(): EquipmentItem[] {
       originX: 0.5,
       originY: 0.82,
       scale: SCALE,
-      offsetY: -3,
+      offsetY: 40,
     });
     items.push({
       id: `${tier}_chest`,
@@ -68,8 +69,8 @@ export function createTieredArmorItems(): EquipmentItem[] {
       textureKey: `${tier}_chest`,
       originX: 0.5,
       originY: 0.35,
-      scale: SCALE,
-      offsetY: 3,
+      scale: CHEST_SCALE,
+      offsetY: -20,
     });
     items.push({
       id: `${tier}_legs`,
@@ -79,7 +80,7 @@ export function createTieredArmorItems(): EquipmentItem[] {
       originX: 0.5,
       originY: 0.08,
       scale: SCALE,
-      offsetY: -3,
+      offsetY: -14,
     });
   }
   return items;

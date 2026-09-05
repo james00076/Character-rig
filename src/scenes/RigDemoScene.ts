@@ -38,12 +38,12 @@ export class RigDemoScene extends Phaser.Scene {
     this.rig = new CharacterRig(
       this,
       this.scale.width / 2,
-      this.scale.height - 40,
+      this.scale.height - 60,
       BODY_TEXTURE_KEYS[0],
       humanoidAttachments,
       BODY_ANIM_KEY,
     );
-    this.rig.container.setScale(4);
+    this.rig.container.setScale(1.3);
     this.rig.body.play(BODY_ANIM_KEY);
     this.rig.setAnimation(BODY_ANIM_KEY);
 

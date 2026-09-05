@@ -38,6 +38,24 @@ mechanism stays verifiable without depending on more external art than
 exists yet. Swap the placeholders out; nothing else about the rig needs to
 change.
 
+The placeholder body (`placeholderBody.ts`) is deliberately sized (a
+200×340 canvas) to actually match the real armor pieces' scale — a second
+pass after the first version was tiny (32×48) and made the real art look
+comically oversized once equipped. It's still not real character art
+(flat-shaded boxes and circles drawn with Phaser Graphics, no proper
+anatomy or style), but its proportions were built to fit under gear rather
+than being an arbitrary stand-in. Expect to re-tune every scale/origin/
+offset in `tieredArmor.ts` again once your actual PixelScape body sprite
+replaces it — "matches this placeholder" and "matches your real body" are
+two different problems, solved the same way (screenshot, adjust, repeat).
+
+One rendering gotcha hit while tuning this: combining a non-integer item
+`scale` with a non-integer container/camera scale (e.g. `0.72 * 1.3 =
+0.936`) produces visible moiré/grid artifacts on finely-detailed pixel art
+under `pixelArt: true` + nearest-neighbor filtering, especially when the
+combined factor lands just *below* 1. Keeping the combined scale at or
+above 1 (prefer whole numbers) made the artifact disappear.
+
 ## Getting art out of Gemini in a shape the rig can use
 
 The tier sheet you generated (Slate/Iron/Umber/Crimson/Twilight/Royal ×

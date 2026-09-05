@@ -3,9 +3,10 @@ import type { AttachmentTable } from "../types";
 
 /**
  * Attachment anchors for the placeholder humanoid body's "idle" animation
- * (see placeholderBody.ts). Two frames: a resting pose and a 1px "breathe up"
- * pose. Array index must match the frame order the "idle" Phaser animation
- * was created with.
+ * (see placeholderBody.ts, a 200x340 canvas sized to actually match the
+ * real armor pieces in public/assets/armor/). Two frames: a resting pose
+ * and a "breathe up" pose. Array index must match the frame order the
+ * "idle" Phaser animation was created with.
  *
  * All coordinates are in body-local pixels, authored for the right-facing
  * pose, measured from the body sprite's origin (bottom-center). Negative Y
@@ -15,24 +16,24 @@ import type { AttachmentTable } from "../types";
 export const humanoidAttachments: AttachmentTable = {
   idle: [
     {
-      [EquipmentSlot.Feet]: { x: 0, y: -1 },
-      [EquipmentSlot.Legs]: { x: 0, y: -14 },
-      [EquipmentSlot.Chest]: { x: 0, y: -26 },
-      [EquipmentSlot.Shoulders]: { x: 0, y: -31 },
-      [EquipmentSlot.Cape]: { x: 0, y: -32 },
-      [EquipmentSlot.Head]: { x: 0, y: -39 },
-      [EquipmentSlot.MainHand]: { x: 9, y: -20 },
-      [EquipmentSlot.OffHand]: { x: -9, y: -20 },
+      [EquipmentSlot.Feet]: { x: 0, y: -8 },
+      [EquipmentSlot.Legs]: { x: 0, y: -115 },
+      [EquipmentSlot.Chest]: { x: 0, y: -175 },
+      [EquipmentSlot.Shoulders]: { x: 0, y: -222 },
+      [EquipmentSlot.Cape]: { x: 0, y: -225 },
+      [EquipmentSlot.Head]: { x: 0, y: -285 },
+      [EquipmentSlot.MainHand]: { x: 78, y: -170 },
+      [EquipmentSlot.OffHand]: { x: -78, y: -170 },
     },
     {
-      [EquipmentSlot.Feet]: { x: 0, y: -1 },
-      [EquipmentSlot.Legs]: { x: 0, y: -14 },
-      [EquipmentSlot.Chest]: { x: 0, y: -27 },
-      [EquipmentSlot.Shoulders]: { x: 0, y: -32 },
-      [EquipmentSlot.Cape]: { x: 0, y: -33 },
-      [EquipmentSlot.Head]: { x: 0, y: -40 },
-      [EquipmentSlot.MainHand]: { x: 9, y: -21 },
-      [EquipmentSlot.OffHand]: { x: -9, y: -21 },
+      [EquipmentSlot.Feet]: { x: 0, y: -8 },
+      [EquipmentSlot.Legs]: { x: 0, y: -115 },
+      [EquipmentSlot.Chest]: { x: 0, y: -179 },
+      [EquipmentSlot.Shoulders]: { x: 0, y: -226 },
+      [EquipmentSlot.Cape]: { x: 0, y: -229 },
+      [EquipmentSlot.Head]: { x: 0, y: -289 },
+      [EquipmentSlot.MainHand]: { x: 78, y: -174 },
+      [EquipmentSlot.OffHand]: { x: -78, y: -174 },
     },
   ],
 };

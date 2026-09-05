@@ -134,62 +134,74 @@ export function createPlaceholderArt(scene: Phaser.Scene): EquipmentItem[] {
     g.fillRect(6, 3, 1, 10);
   });
 
+  // These textures are all drawn tiny (16-26px); scale them up to match
+  // the placeholder body's much larger canvas (see placeholderBody.ts).
+  const SCALE = 6.5;
+
   return [
     {
       id: "guard_chest",
       name: "Guard Chestplate",
       slot: EquipmentSlot.Chest,
       textureKey: "guard_chest",
-      offsetY: 1,
+      scale: SCALE,
+      offsetY: 6,
     },
     {
       id: "berserker_chest",
       name: "Berserker Plate",
       slot: EquipmentSlot.Chest,
       textureKey: "berserker_chest",
-      offsetY: 2,
+      scale: SCALE,
+      offsetY: 13,
     },
     {
       id: "guard_helm",
       name: "Guard Helm",
       slot: EquipmentSlot.Head,
       textureKey: "guard_helm",
-      offsetY: -1,
+      scale: SCALE,
+      offsetY: -6,
     },
     {
       id: "spiked_helm",
       name: "Spiked Warhelm",
       slot: EquipmentSlot.Head,
       textureKey: "spiked_helm",
-      offsetY: -2,
+      scale: SCALE,
+      offsetY: -13,
     },
     {
       id: "tattered_cape",
       name: "Tattered Cape",
       slot: EquipmentSlot.Cape,
       textureKey: "tattered_cape",
+      scale: SCALE,
       originY: 0,
-      offsetY: -6,
+      offsetY: -39,
     },
     {
       id: "steel_pauldrons",
       name: "Steel Pauldrons",
       slot: EquipmentSlot.Shoulders,
       textureKey: "steel_pauldrons",
+      scale: SCALE,
     },
     {
       id: "iron_sword",
       name: "Iron Sword",
       slot: EquipmentSlot.MainHand,
       textureKey: "iron_sword",
+      scale: SCALE,
       originY: 0.85,
-      offsetX: 1,
+      offsetX: 6,
     },
     {
       id: "wood_shield",
       name: "Wood Shield",
       slot: EquipmentSlot.OffHand,
       textureKey: "wood_shield",
+      scale: SCALE,
     },
   ];
 }
