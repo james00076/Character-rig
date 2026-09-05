@@ -13,10 +13,16 @@ import type { EquipmentItem } from "../rig/types";
  * integrated pauldrons — exactly the "don't need a separate Shoulders
  * piece" case called out in ARMOR_PIPELINE.md.
  *
- * Scale/origin here are tuned against the placeholder body in
- * placeholderBody.ts, which is sized to roughly match these pieces but is
- * still not real character art. When a real body sprite replaces the
- * placeholder, these will need re-tuning to match its actual proportions.
+ * These PNGs are pre-scaled to their final display size (baked in via a
+ * one-off smooth resize, see ARMOR_PIPELINE.md's "worked example" section)
+ * rather than scaled up live by Phaser — the source sheet was a JPEG, and
+ * scaling its 8x8 JPEG-block compression artifacts live with nearest-
+ * neighbor filtering made them visible as a grid of faint lines over every
+ * piece. Baking the scale in with a smooth resampler once fixed that, so
+ * every item here uses scale 1 (only the rig's overall container scale
+ * applies on top). Origin/offset are still tuned against the placeholder
+ * body in placeholderBody.ts and will need re-tuning once a real body
+ * sprite replaces it.
  */
 
 const TIERS = [
@@ -37,8 +43,8 @@ const TIER_LABELS: Record<(typeof TIERS)[number], string> = {
   royal: "Royal",
 };
 
-const SCALE = 1.0;
-const CHEST_SCALE = 1.3;
+/** Per-tier nudges for pieces that don't quite match the rest after the shared tuning above. */
+const CHEST_TWEAKS: Partial<Record<(typeof TIERS)[number], { offsetX?: number; offsetY?: number }>> = {};
 
 export function preloadTieredArmor(scene: Phaser.Scene): void {
   for (const tier of TIERS) {
@@ -59,9 +65,9 @@ export function createTieredArmorItems(): EquipmentItem[] {
       textureKey: `${tier}_head`,
       originX: 0.5,
       originY: 0.82,
-      scale: SCALE,
       offsetY: 40,
     });
+    const chestTweak = CHEST_TWEAKS[tier];
     items.push({
       id: `${tier}_chest`,
       name: `${label} Plate`,
@@ -69,8 +75,8 @@ export function createTieredArmorItems(): EquipmentItem[] {
       textureKey: `${tier}_chest`,
       originX: 0.5,
       originY: 0.35,
-      scale: CHEST_SCALE,
-      offsetY: -20,
+      offsetX: chestTweak?.offsetX ?? 0,
+      offsetY: chestTweak?.offsetY ?? -20,
     });
     items.push({
       id: `${tier}_legs`,
@@ -79,7 +85,6 @@ export function createTieredArmorItems(): EquipmentItem[] {
       textureKey: `${tier}_legs`,
       originX: 0.5,
       originY: 0.08,
-      scale: SCALE,
       offsetY: -14,
     });
   }
