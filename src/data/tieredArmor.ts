@@ -46,10 +46,11 @@ const TIER_LABELS: Record<(typeof TIERS)[number], string> = {
 /** Per-tier nudges for pieces that don't quite match the rest after the shared tuning above. */
 const HEAD_TWEAKS: Partial<Record<(typeof TIERS)[number], { scale?: number; offsetX?: number; offsetY?: number }>> = {
   slate: { scale: 0.88, offsetX: 14 },
+  iron: { scale: 0.88 },
 };
 const CHEST_TWEAKS: Partial<Record<(typeof TIERS)[number], { scale?: number; offsetX?: number; offsetY?: number }>> = {
   slate: { scale: 0.9 },
-  iron: { scale: 0.9 },
+  iron: { scale: 0.8 },
 };
 
 export function preloadTieredArmor(scene: Phaser.Scene): void {
