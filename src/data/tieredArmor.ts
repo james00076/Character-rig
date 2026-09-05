@@ -44,7 +44,13 @@ const TIER_LABELS: Record<(typeof TIERS)[number], string> = {
 };
 
 /** Per-tier nudges for pieces that don't quite match the rest after the shared tuning above. */
-const CHEST_TWEAKS: Partial<Record<(typeof TIERS)[number], { offsetX?: number; offsetY?: number }>> = {};
+const HEAD_TWEAKS: Partial<Record<(typeof TIERS)[number], { offsetX?: number; offsetY?: number }>> = {
+  slate: { offsetX: 10 },
+};
+const CHEST_TWEAKS: Partial<Record<(typeof TIERS)[number], { scale?: number; offsetX?: number; offsetY?: number }>> = {
+  slate: { scale: 0.9 },
+  iron: { scale: 0.9 },
+};
 
 export function preloadTieredArmor(scene: Phaser.Scene): void {
   for (const tier of TIERS) {
@@ -58,6 +64,7 @@ export function createTieredArmorItems(): EquipmentItem[] {
   const items: EquipmentItem[] = [];
   for (const tier of TIERS) {
     const label = TIER_LABELS[tier];
+    const headTweak = HEAD_TWEAKS[tier];
     items.push({
       id: `${tier}_head`,
       name: `${label} Helm`,
@@ -65,7 +72,8 @@ export function createTieredArmorItems(): EquipmentItem[] {
       textureKey: `${tier}_head`,
       originX: 0.5,
       originY: 0.82,
-      offsetY: 40,
+      offsetX: headTweak?.offsetX ?? 0,
+      offsetY: headTweak?.offsetY ?? 40,
     });
     const chestTweak = CHEST_TWEAKS[tier];
     items.push({
@@ -75,6 +83,7 @@ export function createTieredArmorItems(): EquipmentItem[] {
       textureKey: `${tier}_chest`,
       originX: 0.5,
       originY: 0.35,
+      scale: chestTweak?.scale ?? 1,
       offsetX: chestTweak?.offsetX ?? 0,
       offsetY: chestTweak?.offsetY ?? -20,
     });
