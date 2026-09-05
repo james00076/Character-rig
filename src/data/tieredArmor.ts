@@ -45,7 +45,7 @@ const TIER_LABELS: Record<(typeof TIERS)[number], string> = {
 
 /** Per-tier nudges for pieces that don't quite match the rest after the shared tuning above. */
 const HEAD_TWEAKS: Partial<Record<(typeof TIERS)[number], { offsetX?: number; offsetY?: number }>> = {
-  slate: { offsetX: 10 },
+  slate: { offsetX: 22 },
 };
 const CHEST_TWEAKS: Partial<Record<(typeof TIERS)[number], { scale?: number; offsetX?: number; offsetY?: number }>> = {
   slate: { scale: 0.9 },
