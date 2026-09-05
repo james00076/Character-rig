@@ -51,7 +51,7 @@ const HEAD_TWEAKS: TierTweaks = {
   slate: { scale: 0.88, offsetX: 14 },
   iron: { scale: 0.88 },
   umber: { scale: 0.85 },
-  crimson: { scale: 0.95, offsetX: 1 },
+  crimson: { scale: 0.95, offsetX: -4 },
 };
 const CHEST_TWEAKS: TierTweaks = {
   slate: { scale: 0.9 },
