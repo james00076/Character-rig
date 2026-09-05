@@ -25,12 +25,12 @@ export type EquipmentSlot = (typeof EquipmentSlot)[keyof typeof EquipmentSlot];
 export const DEFAULT_SLOT_DEPTH: Record<EquipmentSlot, number> = {
   [EquipmentSlot.Cape]: -10,
   [EquipmentSlot.OffHand]: -2,
-  [EquipmentSlot.Legs]: -1,
+  [EquipmentSlot.Legs]: 0.5,
+  [EquipmentSlot.Feet]: 0.5,
   [EquipmentSlot.Chest]: 1,
   [EquipmentSlot.Shoulders]: 2,
   [EquipmentSlot.MainHand]: 3,
   [EquipmentSlot.Head]: 4,
-  [EquipmentSlot.Feet]: -1,
 };
 
 /** Where a slot's item should sit for one specific body animation frame. */

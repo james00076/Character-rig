@@ -3,6 +3,7 @@ import { CharacterRig } from "../rig/CharacterRig";
 import { createPlaceholderArt } from "../rig/placeholderArt";
 import { BODY_ANIM_KEY, BODY_TEXTURE_KEYS, createPlaceholderBody } from "../rig/placeholderBody";
 import { humanoidAttachments } from "../rig/data/humanoidAttachments";
+import { createTieredArmorItems, preloadTieredArmor } from "../data/tieredArmor";
 import { EquipmentSlot } from "../rig/types";
 import type { EquipmentItem } from "../rig/types";
 
@@ -24,11 +25,15 @@ export class RigDemoScene extends Phaser.Scene {
     super("RigDemoScene");
   }
 
+  preload(): void {
+    preloadTieredArmor(this);
+  }
+
   create(): void {
     this.cameras.main.setBackgroundColor("#3a3f4b");
 
     createPlaceholderBody(this);
-    const items = createPlaceholderArt(this);
+    const items = [...createPlaceholderArt(this), ...createTieredArmorItems()];
 
     this.rig = new CharacterRig(
       this,
@@ -46,7 +51,7 @@ export class RigDemoScene extends Phaser.Scene {
     const bySlot = groupBySlot(items);
     this.rig.equip(bySlot[EquipmentSlot.Chest]![0]!);
     this.rig.equip(bySlot[EquipmentSlot.Head]![0]!);
-    this.rig.equip(bySlot[EquipmentSlot.Shoulders]![0]!);
+    this.rig.equip(bySlot[EquipmentSlot.Legs]![0]!);
 
     this.buildUI(bySlot);
 

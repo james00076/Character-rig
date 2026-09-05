@@ -20,15 +20,23 @@ should always be drawn facing right (the default); you never draw a
 left-facing variant.
 
 Paint order (back to front) is `DEFAULT_SLOT_DEPTH` in `types.ts`: Cape →
-OffHand → Legs/Feet → body → Chest → Shoulders → MainHand → Head. An item can
+OffHand → body → Legs/Feet → Chest → Shoulders → MainHand → Head. An item can
 override this with `depthOverride` (e.g. a shield held up in front while
-blocking).
+blocking). Note that Legs/Feet sit *in front of* the body, not behind it —
+the body sprite already has its own bare legs drawn into its texture, so
+leg armor has to paint over that or it's invisible (this bit a first pass
+at this rig: Legs was defaulted to a negative depth by analogy with Cape,
+and equipped boots silently rendered behind the body and were never seen).
 
-The demo (`src/scenes/RigDemoScene.ts`) currently runs entirely on
-procedurally-generated placeholder art (`src/rig/placeholderBody.ts`,
-`src/rig/placeholderArt.ts`) so the mechanism can be verified without
-depending on any external art pipeline. Swap those out; nothing else about
-the rig needs to change.
+The demo (`src/scenes/RigDemoScene.ts`) runs partly on real art now:
+`src/data/tieredArmor.ts` equips actual Gemini-generated Head/Chest/Legs
+pieces across six tiers (Slate → Royal), sliced from a reference sheet —
+see the walkthrough below. Everything else (Cape, Shoulders, MainHand,
+OffHand) still runs on procedurally-generated placeholder art
+(`src/rig/placeholderBody.ts`, `src/rig/placeholderArt.ts`) so the
+mechanism stays verifiable without depending on more external art than
+exists yet. Swap the placeholders out; nothing else about the rig needs to
+change.
 
 ## Getting art out of Gemini in a shape the rig can use
 
@@ -68,6 +76,45 @@ for it to drop straight into the rig:
    piece — the rig doesn't require every slot to be filled. Only use the
    Shoulders slot for gear meant to layer independently on top of a chest
    piece (so you can mix-and-match a chest with different pauldrons).
+
+## Worked example: slicing the Slate→Royal tier sheet
+
+`docs/reference/tier-sheet-slate-to-royal.jpg` is a real Gemini output: six
+armor tiers × Head/Plate/Legs/Full Set, on a baked-in checkerboard (a JPEG,
+so no real alpha — see point 1 above). `src/data/tieredArmor.ts` and
+`public/assets/armor/*.png` are the result of slicing it into 18
+individual transparent PNGs. The approach, if you need to do this again for
+another sheet:
+
+1. **Locate each cell's pixel bounds.** Don't assume a uniform grid — this
+   sheet turned out to have 4 icons per row for most tiers but 5 for a few
+   (an extra alt-angle helmet render), which shifted where Plate/Legs sat
+   in those rows. Detect column boundaries per row by scanning for bands of
+   background-only pixels (columns where >90% of pixels match the checker
+   colors), skipping the label-text band at the top of each row.
+2. **Chroma-key the checkerboard out**, rather than trying to threshold on
+   "gray" alone — several tiers (Slate, Iron) *are* gray metal, close
+   enough to the checker's own gray/white to risk punching holes in the
+   armor. What worked: classify a pixel as background only if it's both
+   (a) neutral/desaturated (min and max color channel within ~8 of each
+   other) *and* (b) close to one of the checker's two exact brightness
+   levels (sampled from a definitely-background patch — here ~182 and
+   ~254) within a tight tolerance (~±6). Real armor shading almost never
+   lands exactly on those two flat values, so this reliably tells "this
+   pixel is a checker tile" apart from "this pixel happens to be gray."
+3. **Crop tight to content, not to the nominal cell.** Auto-crop each
+   slice to the bounding box of non-background pixels (with a few px of
+   padding) so every item's canvas is exactly as big as its art, not the
+   sheet's cell size.
+4. **Pick a pivot per slot and a shared scale.** These pieces were drawn
+   for a much larger/more detailed body than the rig's placeholder, so
+   they all needed the same scale-down factor (`SCALE = 0.11` in
+   `tieredArmor.ts`) and per-slot origins tuned by eye against the
+   placeholder (helmet pivot near the chin at the bottom of its image,
+   chest pivot near the neckline at the top, legs pivot at the top where
+   they'd hang from the hip). Expect to re-tune all of this once a real
+   body replaces the placeholder — these numbers are specific to that
+   placeholder's proportions, not universal constants.
 
 ## Adding a new item
 
