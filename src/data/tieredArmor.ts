@@ -53,6 +53,7 @@ const HEAD_TWEAKS: TierTweaks = {
   umber: { scale: 0.85 },
   crimson: { scale: 0.95, offsetX: -4 },
   twilight: { scale: 0.92, offsetX: -4 },
+  royal: { scale: 0.85 },
 };
 const CHEST_TWEAKS: TierTweaks = {
   slate: { scale: 0.9 },
@@ -60,12 +61,14 @@ const CHEST_TWEAKS: TierTweaks = {
   umber: { scale: 0.85 },
   crimson: { scale: 0.85 },
   twilight: { scale: 0.85 },
+  royal: { scale: 0.85 },
 };
 const LEGS_TWEAKS: TierTweaks = {
   crimson: { scale: 0.85, offsetX: 8, offsetY: -2 },
   iron: { scale: 0.85 },
   umber: { scale: 0.85 },
   twilight: { scale: 0.85 },
+  royal: { scale: 0.85 },
 };
 
 export function preloadTieredArmor(scene: Phaser.Scene): void {
