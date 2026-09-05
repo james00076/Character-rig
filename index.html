@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Character Rig — Armor Equip Demo</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 12px 40px;
+        background: #1b1d24;
+        color: #eee;
+        font-family: system-ui, sans-serif;
+      }
+      h1 {
+        font-size: 18px;
+        margin: 0;
+        color: #fff;
+      }
+      #game-container canvas {
+        image-rendering: pixelated;
+        border: 2px solid #444;
+      }
+      #ui {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: center;
+        max-width: 720px;
+      }
+      .slot-group {
+        background: #262932;
+        border: 1px solid #383c47;
+        border-radius: 8px;
+        padding: 10px 12px;
+        min-width: 140px;
+      }
+      .slot-group h2 {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #9aa3b2;
+        margin: 0 0 8px;
+      }
+      .slot-group button {
+        display: block;
+        width: 100%;
+        margin-bottom: 6px;
+        padding: 6px 8px;
+        font-size: 12px;
+        background: #333844;
+        color: #eee;
+        border: 1px solid #454b59;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: left;
+      }
+      .slot-group button:hover {
+        background: #3d4451;
+      }
+      .slot-group button.active {
+        background: #4a6fa5;
+        border-color: #6f97cf;
+      }
+      #facing-btn {
+        padding: 8px 16px;
+        background: #333844;
+        color: #eee;
+        border: 1px solid #454b59;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Character Rig — Paperdoll Armor Demo</h1>
+    <div id="game-container"></div>
+    <button id="facing-btn">Turn Around</button>
+    <div id="ui"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
